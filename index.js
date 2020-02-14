@@ -1,16 +1,17 @@
 const express = require('express')
-const sequelize = require('sequelize')
+const Sequelize = require('sequelize')
 const bcrypt = require('bcryptjs')
 require('dotenv').config()
 
-const database = new Sequelize({
+const dbName = process.env.BUZZLE_DB_NAME;
+const dbUser = process.env.BUZZLE_DB_USER;
+const dbPass = process.env.BUZZLE_DB_PASS;
+
+const database = new Sequelize(dbName, dbUser, dbPass, {
     'host': process.env.BUZZLE_DB_HOST,
     'port': process.env.BUZZLE_DB_PORT,
-    'database': process.env.BUZZLE_DB_NAME,
-    'username': process.env.BUZZLE_DB_USER,
-    'password': process.env.BUZZLE_DB_PASSWORD,
     'dialect': process.env.BUZZLE_DB_DIALECT
-})
+});
 
 const User = database.define('user', {
     'login': {
@@ -56,13 +57,12 @@ app.get('/register', (req, res) => {
     res.render('register')
 });
 
-sequelize.sync().then(() => User.upsert({
+database.sync().then(() => User.upsert({
     'login': process.env.BUZZLE_ADMIN_USER,
-    'password': bcrypt.hashSync(proces.env.BUZZLE_ADMIN_PASS,
-                                proces.env.BUZZLE_HASHING_ROUNDS)
+    'password': bcrypt.hashSync(process.env.BUZZLE_ADMIN_PASS,
+                                bcrypt.genSaltSync(+process.env.BUZZLE_HASHING_ROUNDS))
 })).then(() => {
+    const port = process.env.BUZZLE_PORT
     app.listen(port, () => console.log(`Buzzle is listening on port ${port}!`))
 });
 
-const port = process.env.BUZZLE_PORT
-app.listen(port, () => console.log(`Buzzle is listening on port ${port}!`))
