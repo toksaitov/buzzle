@@ -12,6 +12,12 @@
         <h1>Buzzle</h1>
     </header>
     <main>
+        <% if (session.error) { %>
+            <section class="error">
+                <p><%= session.error %></p>
+                <% session.error = undefined %>
+            </section>
+        <%  } %>
         <form method="POST" action="/register">
             <label>
                 Login:<br>

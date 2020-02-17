@@ -13,17 +13,17 @@ Buzzle is a better clone of Twitter.
 To start the app, first create a `.env` with
 the following parameters:
 
-* `BUZZLE_DB_HOST` with a database host
-* `BUZZLE_DB_PORT` with a database port
-* `BUZZLE_DB_NAME` with a database name
-* `BUZZLE_DB_USER` with a database user
-* `BUZZLE_DB_PASS` with a database password
-* `BUZZLE_DB_DIALECT` with a database dialect
-* `BUZZLE_SESSION_SECRET` with a session secret for cookies processing
-* `BUZZLE_HASHING_ROUNDS` with hashing rounds
-* `BUZZLE_PORT` with the port of the web application
-* `BUZZLE_ADMIN_USER` with the login name of the administrator
-* `BUZZLE_ADMIN_PASS` with the password of the administrator's account
+* `BUZZLE_DB_HOST` with a database host (defaults to 'localhost')
+* `BUZZLE_DB_PORT` with a database port (defaults to '3306')
+* `BUZZLE_DB_NAME` with a database name (defaults to 'buzzle\_db')
+* `BUZZLE_DB_USER` with a database user (defaults to 'buzzle\_db\_user')
+* `BUZZLE_DB_PASS` with a database password (required)
+* `BUZZLE_DB_DIALECT` with a database dialect (defaults to 'mysql')
+* `BUZZLE_SESSION_SECRET` with a session secret for cookies processing (required)
+* `BUZZLE_PASS_HASHING_ROUNDS` with hashing rounds (defaults to '8')
+* `BUZZLE_PORT` with the port of the web application (defaults to '8080')
+* `BUZZLE_ADMIN_USER` with the login name of the administrator (required)
+* `BUZZLE_ADMIN_PASS` with the password of the administrator's account (required)
 
 For example:
 

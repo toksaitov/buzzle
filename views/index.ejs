@@ -11,8 +11,15 @@
     <header>
         <h1>Buzzle</h1>
         <ul class="user-toolbar">
-            <li><a href="/login">Login</a></li>
-            <li><a href="/register">Register</a></li>
+            <% if (!session.authorized) { %>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+            <% } else { %>
+                <%= session.login %>
+                <form method="POST" action="/logout" style="display:inline">
+                    <input type="submit" value="logout">
+                </form>
+            <% } %>
         </ul>
     </header>
     <main>
