@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Buzzle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Buzzle</h1>
+    </header>
+    <main>
+        <% if (session.authorized) { %>
+            <% if (session.error) { %>
+                <section class="error">
+                    <p><%= session.error %></p>
+                    <% session.error = undefined %>
+                </section>
+            <%  } %>
+            <form action="/message/<%= message.id %>/edit" method="POST">
+                <label>
+                    Change your buzz<br>
+                    <input type="text" name="content" value="<%= message.content %>">
+                </label>
+                <input type="submit" value="Update">
+            </form>
+        <% } %>
+    </main>
+</body>
+</html>

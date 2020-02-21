@@ -23,8 +23,37 @@
         </ul>
     </header>
     <main>
+        <% if (session.authorized) { %>
+            <% if (session.error) { %>
+                <section class="error">
+                    <p><%= session.error %></p>
+                    <% session.error = undefined %>
+                </section>
+            <%  } %>
+            <form action="/message/create" method="POST">
+                <label>
+                    What’s on your mind?<br>
+                    <input type="text" name="content">
+                </label>
+                <input type="submit" value="Buzz">
+            </form>
+        <% } %>
         <ul class="messages">
-            <li class="message">Nothing to see here</li>
+            <% for (const message of messages) { %>
+                <li class="message">
+                    <p class="login">@<%= message.user.login %></p>
+                    <p class="content"><%= message.content %></p>
+                    <p class=="creation-date"><%= moment(message.createdAt).format('lll') %></p>
+                    <% if (session.administrator || session.userID === message.user.id) { %>
+                        <form method="GET" action="/message/<%= message.id %>/edit" style="display:inline">
+                            <input type="submit" value="Edit">
+                        </form>
+                        <form method="POST" action="/message/<%= message.id %>/delete" style="display:inline">
+                            <input type="submit" value="Delete">
+                        </form>
+                    <% } %>
+                </li>
+            <% } %>
         </ul>
     </main>
 </body>
