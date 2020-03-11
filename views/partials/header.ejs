@@ -1,0 +1,19 @@
+<header>
+    <nav class="navbar navbar-dark bg-primary">
+        <a class="navbar-brand" href="/">
+            <h1>Buzzle</h1>
+        </a>
+        <% if (showUserToolbar) { %>
+            <% if (session.authorized) { %>
+                <form action="/logout" method="POST">
+                    <input id="logout" class="btn btn-outline-light" type="submit" value="Logout @(<%= session.login %>)">
+                </form>
+            <% } else { %>
+                <div class="btn-group">
+                    <a class="btn btn-outline-light" href="/login">Login</a>
+                    <a class="btn btn-outline-light" href="/register">Register</a>
+                </div>
+            <% } %>
+        <% } %>
+    </div>
+</header>

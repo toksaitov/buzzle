@@ -1,38 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Buzzle</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <h1>Buzzle</h1>
-    </header>
-    <main>
-        <% if (session.error) { %>
-            <section class="error">
-                <p><%= session.error %></p>
-                <% session.error = undefined %>
-            </section>
-        <%  } %>
-        <form method="POST" action="/register">
-            <label>
-                Login:<br>
-                <input name="login" type="text"><br>
-            </label><br>
-            <label>
-                Password:<br>
-                <input name="password" type="password"><br>
-            </label><br>
-            <label>
-                Repeat the Password:<br>
-                <input name="password-repeat" type="password"><br>
-            </label><br>
-            <input type="submit" value="Register">
-        </form>
-    </main>
-</body>
+    <head>
+        <%- include('partials/head', { 'title': 'Buzzle: Registration' }) %>
+    </head>
+    <body>
+        <%- include('partials/header', { 'showUserToolbar': false }) %>
+        <main class="container">
+            <%- include('partials/error-row') %>
+            <%- include('partials/register-form-row') %>
+        </main>
+        <%- include('partials/footer') %>
+    </body>
 </html>

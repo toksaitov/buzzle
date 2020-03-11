@@ -1,67 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Buzzle</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-</head>
-<body>
-    <header class="navbar navbar-light bg-light">
-        <h1><a clas="navbar-brand" href="/">Buzzle</a></h1>
-        <div class="btn-group">
-            <% if (!session.authorized) { %>
-                <a class="btn btn-secondary" href="/login">Login</a>
-                <a class="btn btn-secondary" href="/register">Register</a>
-            <% } else { %>
-                <%= session.login %>
-                <form method="POST" action="/logout" style="display:inline">
-                    <input type="submit" value="logout">
-                </form>
-            <% } %>
-        </div>
-    </header>
-    <main class="container">
-        <% if (session.authorized) { %>
-            <% if (session.error) { %>
-                <section class="error">
-                    <p><%= session.error %></p>
-                    <% session.error = undefined %>
-                </section>
-            <%  } %>
-            <form action="/message/create" method="POST">
-                <label>
-                    What’s on your mind?<br>
-                    <input type="text" name="content">
-                </label>
-                <input type="submit" value="Buzz">
-            </form>
-        <% } %>
-        <div class="row">
-            <% for (const message of messages) { %>
-                <div class="col-md-4">
-                    <div class="card m-3">
-                        <div class="card-body">
-                            <p class="card-title">@<%= message.user.login %></p>
-                            <p class="card-text"><%= message.content %></p>
-                            <small><time class="card-subtitle text-muted"><%= moment(message.createdAt).format('lll') %></time></small>
-                            <% if (session.administrator || session.userID === message.user.id) { %>
-                                <form method="GET" action="/message/<%= message.id %>/edit" style="display:inline">
-                                    <input type="submit" value="Edit">
-                                </form>
-                                <form method="POST" action="/message/<%= message.id %>/delete" style="display:inline">
-                                    <input type="submit" value="Delete">
-                                </form>
-                            <% } %>
-                        </div>
-                    </div>
-                </div>
-            <% } %>
-        </div>
-    </main>
-</body>
+    <head>
+        <%- include('partials/head', { 'title': 'Buzzle' }) %>
+    </head>
+    <body>
+        <%- include('partials/header', { 'showUserToolbar': true }) %>
+        <main class="container">
+            <%- include('partials/error-row') %>
+            <%- include('partials/message-form-row') %>
+            <%- include('partials/messages-row') %>
+        </main>
+        <%- include('partials/footer') %>
+    </body>
 </html>
