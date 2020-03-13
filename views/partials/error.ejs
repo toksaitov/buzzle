@@ -1,4 +1,10 @@
-<div class="alert alert-danger">
-    <%= session.error %>
-    <% delete session.error; %>
-</div>
+<% if (session.error) { %>
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-4">
+            <div class="alert alert-danger">
+                <%= session.error %>
+                <% delete session.error; %>
+            </div>
+        </div>
+    </div>
+<% } %>

@@ -1,0 +1,21 @@
+version: "2"
+
+services:
+    buzzle:
+        build: "."
+        image: "toksaitov/buzzle"
+        ports:
+            - "80:80"
+        env_file: ".env"
+        depends_on:
+            - "buzzle-db"
+
+    buzzle-db:
+        image: "mysql:5.7.29"
+        command: "--character-set-server=utf8 --collation-server=utf8_general_ci"
+        environment:
+            MYSQL_ROOT_PASSWORD: "${BUZZLE_DB_PASS}"
+            MYSQL_DATABASE: "${BUZZLE_DB_NAME}"
+            MYSQL_USER: "${BUZZLE_DB_USER}"
+            MYSQL_PASSWORD: "${BUZZLE_DB_PASS}"
+

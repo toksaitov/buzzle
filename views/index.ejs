@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <%- include('partials/head', { 'title': 'Buzzle' }) %>
+        <%- include('partials/common/head', { 'title': 'Buzzle' }) %>
     </head>
     <body>
         <%- include('partials/header', { 'showUserToolbar': true }) %>
         <main class="container">
-            <%- include('partials/error-row') %>
-            <%- include('partials/message-form-row') %>
-            <%- include('partials/messages-row') %>
+            <%- include('partials/error') %>
+            <%- include('partials/message-form') %>
+            <%- include('partials/messages') %>
         </main>
         <%- include('partials/footer') %>
     </body>

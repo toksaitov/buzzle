@@ -18,15 +18,24 @@ server.get('/', (req, res) => {
             'model': User
         }]
     }).then(messages => {
-        res.render('index', { messages, 'session': req.session });
+        res.render('index', { messages, 'session': req.session, 'message': null });
     }).catch(error => {
         console.error(error);
         res.status(503).end('Service Unavailable');
     });
 });
 
-database.start().then(() => {
-    const port = parameters.port;
-    server.listen(port, () => console.log(`Buzzle is listening on port ${port}!`))
-});
+(function loop() {
+    setTimeout(() => {
+        database.start().then(() => {
+            const port = parameters.port;
+            server.listen(port, () => console.log(`Buzzle is listening on port ${port}!`))
+        }).catch(error => {
+            console.error(error);
+            console.error("Failed to connect. Trying again...");
+
+            loop();
+        });
+    }, parameters.dbTimeout);
+})();
 

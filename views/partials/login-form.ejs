@@ -1,11 +1,15 @@
-<form class="border rounded p-3 m-3" method="POST" action="/login">
-    <div class="form-group">
-        <label for="login">Login:</label>
-        <input id="login" class="form-control" name="login" type="text" required>
+<div class="row justify-content-center">
+    <div class="col-lg-6 px-5">
+        <form class="p-3" method="POST" action="/login">
+            <div class="form-group">
+                <label for="login">Login:</label>
+                <input id="login" class="form-control" name="login" type="text" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input id="password" class="form-control" name="password" type="password" required>
+            </div>
+            <input class="btn btn-primary" type="submit" value="Login">
+        </form>        
     </div>
-    <div class="form-group">
-        <label for="password">Password:</label>
-        <input id="password" class="form-control" name="password" type="password" required>
-    </div>
-    <input class="btn btn-primary" type="submit" value="Login">
-</form>
+</div>

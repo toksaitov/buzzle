@@ -1,21 +1,23 @@
-<% if (session.userID === message.user.id) { %>
-<div class="card p-3 m-2 text-white bg-primary">
-<% } else { %>
-<div class="card p-3 m-2 text-white bg-secondary">
-<% } %>
-    <h5 class="card-title">@<%= message.user.login %></h5>
-    <div class="card-text"><%= message.content %></div>
-    <time class="card-subtitle"><small><%= moment(message.createdAt).format('LLL') %></small></time>
-    <% if (session.administrator || session.userID === message.user.id) { %>
-        <div class="clearfix">
-            <div class=float-right>
-                <form class="d-inline mr-1" action="/message/<%= message.id %>/edit" method="GET">
-                    <input class="btn btn-sm btn-outline-light" type="submit" data-id="<%= message.id %>" value="Edit">
-                </form>
-                <form class="d-inline ml-1" action="/message/<%= message.id %>/delete" method="POST">
-                    <input class="btn btn-sm btn-outline-light" type="submit" data-id="<%= message.id %>" value="Delete">
-                </form>
-            </div>
-        </div>
+<div class="col-md-4">
+    <% if (session.userID === message.user.id) { %>
+    <div class="message card p-3 m-2 text-white bg-primary">
+    <% } else { %>
+    <div class="message card p-3 m-2 text-white bg-secondary">
     <% } %>
+        <h5 class="card-title">@<%= message.user.login %></h5>
+        <div class="message-content card-text"><%= message.content %></div>
+        <time class="message-date card-subtitle"><small><%= moment(message.createdAt).format('LLL') %></small></time>
+        <% if (session.administrator || session.userID === message.user.id) { %>
+            <div class="clearfix">
+                <div class=float-right>
+                    <form class="d-inline mr-1" action="/message/<%= message.id %>/edit" method="GET">
+                        <input class="edit-button btn btn-sm btn-outline-light" type="submit" data-id="<%= message.id %>" value="Edit">
+                    </form>
+                    <form class="d-inline ml-1" action="/message/<%= message.id %>/delete" method="POST">
+                        <input class="delete-button btn btn-sm btn-outline-light" type="submit" data-id="<%= message.id %>" value="Delete">
+                    </form>
+                </div>
+            </div>
+        <% } %>
+    </div>
 </div>

@@ -1,9 +1,27 @@
-<form action="/message/create" method="POST">
-    <label for="message-content" class="text-primary"><strong>What’s on your mind?</strong></label>
-    <div class="input-group mb-3">
-        <input id="message-content" class="form-control text-white border-primary bg-primary" type="text" name="content" autocomplete="off">
-        <div class="input-group-append">
-            <input class="btn btn-primary" type="submit" value="Send">
+<% if (session.authorized) { %>
+    <div class="row justify-content-center">
+        <div class="col-md-6 px-5 mt-4">
+            <% if (message) { %>
+                <form action="/message/<%= message.id %>/edit" method="POST">
+                    <label for="message-content" class="text-primary"><strong>Update your message:</strong></label>
+                    <div class="input-group mb-3">
+                        <input id="message-content" class="form-control text-white border-primary bg-primary" type="text" name="content" autocomplete="off" value="<%= message.content %>">
+                        <div class="input-group-append">
+                            <input class="btn btn-primary" type="submit" value="Update">
+                        </div>
+                    </div>
+                </form>
+            <% } else { %>
+                <form action="/message/create" method="POST">
+                    <label for="message-content" class="text-primary"><strong>What’s on your mind?</strong></label>
+                    <div class="input-group mb-3">
+                        <input id="message-content" class="form-control text-white border-primary bg-primary" type="text" name="content" autocomplete="off">
+                        <div class="input-group-append">
+                            <input class="btn btn-primary" type="submit" value="Send">
+                        </div>
+                    </div>
+                </form>
+            <% } %>
         </div>
     </div>
-</form>
+<% } %>

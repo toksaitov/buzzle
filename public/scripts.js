@@ -1,44 +1,81 @@
 $(function() {
-    $('input[value=Edit]').click(function(event) {
+    const animationSpeed = 'fast';
+
+    $(".delete-button").click(function(event) {
         event.preventDefault();
 
-        const button = $(this);
-        button.prop('disabled', true);
-
-        if (button.val() === 'Edit') {
-            const form = button.parent();
-            const content = form.parent().parent().prevAll('.card-text');
-            content.hide('fast');
-
-            const textArea = $(`<textarea class="d-block">${content.text()}</textarea>`);
-            textArea.hide().insertAfter(content).show('slow').queue(function() {
-                button.val('Done');
-                button.prop('disabled', false);
+        const deleteButton = $(this);
+        if (deleteButton.val() === 'Delete') {
+            $.post(`/message/${deleteButton.data('id')}/delete`, function() {
+                const cardColumn = deleteButton.parents('.message').parent();
+                cardColumn.hide(animationSpeed, function() {
+                    $(this).remove();
+                });
             });
         } else {
-            const form = button.parent();
-            const textArea = form.parent().parent().prevAll('textarea');
-            const content = textArea.prevAll('.card-text');
-            $.post(`/message/${button.data('id')}/edit`, { 'content': textArea.val() }, function() {
-                content.text(textArea.val());
-                textArea.remove();
-                content.show('slow');
-                button.val('Edit');
-                button.prop('disabled', false);
+            const editButton = deleteButton.parents('.message').find(".edit-button");
+            editButton.attr('disabled', true);
+            deleteButton.attr('disabled', true);
+
+            const content = deleteButton.parents('.message').find('.message-content');
+            const input = content.next();
+            input.hide(animationSpeed, function() {
+                content.show(animationSpeed, function() {
+                    input.remove();
+
+                    editButton.val('Edit');
+                    deleteButton.val('Delete');
+
+                    editButton.attr('disabled', false);
+                    deleteButton.attr('disabled', false);
+                });
             });
         }
     });
 
-    $('input[value=Delete]').click(function(event) {
+    $(".edit-button").click(function(event) {
         event.preventDefault();
 
-        const element = $(this);
-        $.post(`/message/${element.data('id')}/delete`, function() {
-            element.parents('.col-md-4')
-                   .fadeOut('fast')
-                   .queue(function() {
-                       $(this).remove();
-                   });
-        });
+        const editButton = $(this);
+        if (editButton.val() === 'Edit') {
+            const deleteButton = editButton.parents('.message').find(".delete-button");
+            editButton.attr('disabled', true);
+            deleteButton.attr('disabled', true);
+
+            const content = editButton.parents('.message').find('.message-content');
+            content.hide(animationSpeed, function() {
+                const input = $(`<textarea>${content.text()}</textarea>`);
+                input.hide().insertAfter(content).show(animationSpeed, function() {
+                    editButton.attr('disabled', false);
+                    deleteButton.attr('disabled', false);
+
+                    editButton.val('Done');
+                    deleteButton.val('Cancel');
+                });
+            });
+        } else {
+            const deleteButton = editButton.parents('.message').find(".delete-button");
+            editButton.attr('disabled', true);
+            deleteButton.attr('disabled', true);
+
+            const content = deleteButton.parents('.message').find('.message-content');
+            const input = content.next();
+
+            const data = { 'content': input.val() }
+            $.post(`/message/${editButton.data('id')}/edit`, data, function() {
+                input.hide(animationSpeed, function() {
+                    content.text(input.val());
+                    content.show(animationSpeed, function() {
+                        input.remove();
+
+                        editButton.val('Edit');
+                        deleteButton.val('Delete');
+
+                        editButton.attr('disabled', false);
+                        deleteButton.attr('disabled', false);
+                    });
+                });
+            });
+        }
     });
 });
