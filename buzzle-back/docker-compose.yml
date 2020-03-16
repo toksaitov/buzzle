@@ -2,13 +2,17 @@ version: "2"
 
 services:
     buzzle:
-        build: "."
+        build:
+            context: "."
+            args:
+                port: "${BUZZLE_PORT}"
         image: "toksaitov/buzzle"
         ports:
-            - "80:${BUZZLE_PORT}"
+            - "${BUZZLE_PORT}:${BUZZLE_PORT}"
         env_file: ".env"
         depends_on:
             - "buzzle-db"
+            - "buzzle-sess-db"
 
     buzzle-db:
         image: "mysql:5.7.29"
@@ -18,3 +22,7 @@ services:
             MYSQL_DATABASE: "${BUZZLE_DB_NAME}"
             MYSQL_USER: "${BUZZLE_DB_USER}"
             MYSQL_PASSWORD: "${BUZZLE_DB_PASS}"
+
+    buzzle-sess-db:
+        image: "redis:5.0.8"
+        command: "redis-server --appendonly yes --requirepass ${BUZZLE_SESSION_DB_PASS}"

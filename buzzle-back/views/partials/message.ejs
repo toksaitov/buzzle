@@ -9,7 +9,7 @@
         <time class="message-date card-subtitle"><small><%= moment(message.createdAt).format('LLL') %></small></time>
         <% if (session.administrator || session.userID === message.user.id) { %>
             <div class="clearfix">
-                <div class=float-right>
+                <div class="float-right">
                     <form class="d-inline mr-1" action="/message/<%= message.id %>/edit" method="GET">
                         <input class="edit-button btn btn-sm btn-outline-light" type="submit" data-id="<%= message.id %>" value="Edit">
                     </form>

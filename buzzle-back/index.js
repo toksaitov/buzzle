@@ -1,13 +1,15 @@
-import parameters from './lib/parameters.js'
-import database from './lib/database.js'
+import parameters from './lib/parameters.js';
 
-import serverBuilder from './lib/server.js'
-const server = serverBuilder(parameters);
+import databaseBuilder from './lib/database.js';
+const database = databaseBuilder(parameters);
 
-import users from './lib/users.js'
+import serverBuilder from './lib/server.js';
+const server = serverBuilder(parameters, database);
+
+import users from './lib/users.js';
 users(parameters, server, database);
 
-import messages from './lib/messages.js'
+import messages from './lib/messages.js';
 messages(parameters, server, database);
 
 server.get(['/', '/messages'], (req, res) => {
@@ -59,4 +61,3 @@ server.get(['/', '/messages'], (req, res) => {
         });
     }, parameters.dbTimeout);
 })();
-
