@@ -5,7 +5,7 @@ services:
         build: "."
         image: "toksaitov/buzzle"
         ports:
-            - "80:80"
+            - "80:${BUZZLE_PORT}"
         env_file: ".env"
         depends_on:
             - "buzzle-db"
@@ -18,4 +18,3 @@ services:
             MYSQL_DATABASE: "${BUZZLE_DB_NAME}"
             MYSQL_USER: "${BUZZLE_DB_USER}"
             MYSQL_PASSWORD: "${BUZZLE_DB_PASS}"
-

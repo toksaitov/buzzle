@@ -25,6 +25,8 @@ the following parameters:
 * `BUZZLE_PORT` with the port of the web application (defaults to '8080')
 * `BUZZLE_ADMIN_USER` with the login name of the administrator (required)
 * `BUZZLE_ADMIN_PASS` with the password of the administrator's account (required)
+* `BUZZLE_MIN_LOGIN_LENGTH` with the minimum login length (defaults to 3)
+* `BUZZLE_MIN_PASS_LENGTH` with the minimum password length (defaults to 7)
 
 For example:
 
@@ -44,6 +46,9 @@ BUZZLE_PORT=8080
 
 BUZZLE_ADMIN_USER=chief
 BUZZLE_ADMIN_PASS=...
+
+BUZZLE_MIN_LOGIN_LENGTH=3
+BUZZLE_MIN_PASS_LENGTH=7
 ```
 
 After that, install npm dependencies and start the server.
