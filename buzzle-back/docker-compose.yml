@@ -5,7 +5,7 @@ services:
         build:
             context: "."
             args:
-                port: "${BUZZLE_PORT}"
+                PORT: "${BUZZLE_PORT}"
         image: "toksaitov/buzzle"
         ports:
             - "${BUZZLE_PORT}:${BUZZLE_PORT}"

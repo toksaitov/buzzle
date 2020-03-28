@@ -5,7 +5,7 @@ import Message from './Message.js'
 
 function Messages(props) {
     const user = props.user;
-    const messages = props.messages;
+    const messages = props.messages || [];
 
     return (
         <AnimateGroup animation="fade" className="row my-3">{messages.length === 0 ?
