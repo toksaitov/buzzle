@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly and equal to snapshot 1`] = `
+<footer>
+  <nav
+    className="navbar navbar-light bg-light"
+  >
+    <p
+      className="mx-auto mt-3"
+    >
+      © 2021
+    </p>
+  </nav>
+</footer>
+`;
