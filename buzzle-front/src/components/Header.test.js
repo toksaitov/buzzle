@@ -10,11 +10,11 @@ it('renders without crashing', () => {
 });
 
 it('renders without crashing with error', () => {
-const wrapper = shallow(<Header error="Something went wrong..." />);
-expect(wrapper.contains("Something went wrong...")).toBe(true);
+    const wrapper = shallow(<Header error="Something went wrong..." />);
+    expect(wrapper.contains("Something went wrong...")).toBe(true);
 });
 
 it('renders without crashing with empty error', () => {
-const wrapper = shallow(<Header error="Something has gone completely wrong!" />);
-expect(wrapper.contains("Something went wrong...")).toBe(true);
+    const wrapper = shallow(<Header error="Something has gone completely wrong!" />);
+    expect(wrapper.contains("Something went wrong...")).toBe(true);
 });
