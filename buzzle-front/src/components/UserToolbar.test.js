@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
+import { BrowserRouter as Router } from "react-router-dom";
 
-import Header from './Header.js';
+import UserToolbar from './UserToolbar.js';
 
 it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<Header />, div);
+    ReactDOM.render(<Router><UserToolbar /></Router>, div);
 });
 
 it('renders correctly and equal to snapshot', () => {
-    const tree = renderer.create(<Header />)
+    const tree = renderer.create(<Router><UserToolbar /></Router>)
                          .toJSON();
-  
+
     expect(tree).toMatchSnapshot();
 });

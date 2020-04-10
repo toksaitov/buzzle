@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly and equal to snapshot 1`] = `
+<div
+  className="row justify-content-center"
+>
+  <div
+    className="col-lg-6 px-5"
+  >
+    <form
+      action="/register"
+      autoComplete="off"
+      className="p-3"
+      method="POST"
+      onChange={[Function]}
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="login"
+        >
+          Login:
+        </label>
+        <input
+          autoComplete="off"
+          className="form-control"
+          id="login"
+          name="login"
+          required={true}
+          type="text"
+        />
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="password"
+        >
+          Password:
+        </label>
+        <input
+          autoComplete="new-password"
+          className="form-control"
+          id="password"
+          name="password"
+          required={true}
+          type="password"
+        />
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="password-repeat"
+        >
+          Repeat the Password:
+        </label>
+        <input
+          autoComplete="new-password"
+          className="form-control"
+          id="password-repeat"
+          name="password-repeat"
+          required={true}
+          type="password"
+        />
+      </div>
+      <input
+        className="btn btn-primary"
+        type="submit"
+        value="Register"
+      />
+    </form>
+  </div>
+</div>
+`;

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly and equal to snapshot 1`] = `
+<div
+  className="btn-group"
+>
+  <a
+    className="btn btn-outline-light"
+    href="/login"
+    onClick={[Function]}
+  >
+    Login
+  </a>
+  <a
+    className="btn btn-outline-light"
+    href="/register"
+    onClick={[Function]}
+  >
+    Register
+  </a>
+</div>
+`;
