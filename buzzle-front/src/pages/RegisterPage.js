@@ -6,22 +6,16 @@ import RegisterForm from '../components/RegisterForm.js';
 import Footer from '../components/Footer.js';
 
 function RegisterPage(props) {
-    const error = props.error;
     const user = props.user;
-
-    const handleError = props.handleError;
     const handleUserCreate = props.handleUserCreate;
 
     return (
         <>
             <Header user={user} />
             <main className="container">
-                {error &&
-                    <Error error={error} />
-                }
+                <Error />
                 <RegisterForm
                     user={user}
-                    handleError={handleError}
                     handleUserCreate={handleUserCreate} />
             </main>
             <Footer />

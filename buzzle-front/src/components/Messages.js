@@ -18,7 +18,6 @@ function Messages(props) {
                     key={item.message.id}
                     user={user}
                     message={item.message}
-                    handleError={props.handleError}
                     handleMessageEdit={props.handleMessageEdit}
                     handleMessageDelete={props.handleMessageDelete} />
             )

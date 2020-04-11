@@ -1,10 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
-import parameters from './parameters.js'
+import parameters from './parameters.js';
+import { setError, clearError } from './actions/error.js';
 
 import LoginPage from './pages/LoginPage.js';
 import RegisterPage from './pages/RegisterPage.js';
@@ -13,13 +15,8 @@ import HomePage from './pages/HomePage.js';
 class App extends React.Component {
     state = {
         'user': null,
-        'messages': [],
-        'error': null
+        'messages': []
     };
-
-    handleError = error => {
-        this.setState({ error });
-    }
 
     handleUserLoad = () => {
         fetch(`${parameters.apiURL}/user`, {
@@ -29,13 +26,13 @@ class App extends React.Component {
           .then(response => response.json())
           .then(data => {
               if (data.error) {
-                  this.handleError(data.error);
+                  this.props.handleError(data.error);
               } else {
                   this.setState({ 'user': data.user });
               }
           })
           .catch(error => {
-              this.handleError(`${error}`);
+              this.props.handleError(`${error}`);
           });
     }
 
@@ -51,13 +48,13 @@ class App extends React.Component {
           .then(response => response.json())
           .then(data => {
               if (data.error) {
-                  this.handleError(data.error);
+                  this.props.handleError(data.error);
               } else {
                   this.setState({ 'user': data.user });
               }
           })
           .catch(error => {
-              this.handleError(`${error}`);
+              this.props.handleError(`${error}`);
           });
     }
 
@@ -73,13 +70,13 @@ class App extends React.Component {
           .then(response => response.json())
           .then(data => {
               if (data.error) {
-                  this.handleError(data.error);
+                  this.props.handleError(data.error);
               } else {
                   this.setState({ 'user': data.user });
               }
           })
           .catch(error => {
-              this.handleError(`${error}`);
+              this.props.handleError(`${error}`);
           });
     }
 
@@ -91,13 +88,13 @@ class App extends React.Component {
           .then(response => response.json())
           .then(data => {
               if (data.error) {
-                  this.handleError(data.error);
+                  this.props.handleError(data.error);
               } else {
                   this.setState({ 'messages': data.messages });
               }
           })
           .catch(error => {
-              this.handleError(`${error}`);
+              this.props.handleError(`${error}`);
           });
     }
 
@@ -113,7 +110,7 @@ class App extends React.Component {
           .then(response => response.json())
           .then(data => {
               if (data.error) {
-                  this.handleError(data.error);
+                  this.props.handleError(data.error);
               } else {
                   this.setState({
                       'messages': [...this.state.messages, data]
@@ -122,7 +119,7 @@ class App extends React.Component {
               }
           })
           .catch(error => {
-              this.handleError(`${error}`);
+              this.props.handleError(`${error}`);
           });
     }
 
@@ -138,7 +135,7 @@ class App extends React.Component {
           .then(response => response.json())
           .then(data => {
               if (data.error) {
-                  this.handleError(data.error);
+                  this.props.handleError(data.error);
               } else {
                   this.setState({
                       'messages': this.state.messages.map(item => (
@@ -149,7 +146,7 @@ class App extends React.Component {
               }
           })
           .catch(error => {
-              this.handleError(`${error}`);
+              this.props.handleError(`${error}`);
           });
     }
 
@@ -163,7 +160,7 @@ class App extends React.Component {
           .then(response => response.json())
           .then(data => {
               if (data.error) {
-                  this.handleError(data.error);
+                  this.props.handleError(data.error);
               } else {
                   this.setState({
                       'messages': this.state.messages.filter(item => item.message.id !== id)
@@ -171,7 +168,7 @@ class App extends React.Component {
               }
           })
           .catch(error => {
-              this.handleError(`${error}`);
+              this.props.handleError(`${error}`);
           });
     }
 
@@ -181,37 +178,27 @@ class App extends React.Component {
     }
 
     render() {
-        const error = this.state.error;
-        if (error) {
-            this.state.error = null;
-        }
-
+        const clearError = this.props.clearError;
         const user = this.state.user;
         const messages = this.state.messages;
 
         return (
-            <Router>
+            <Router onUpdate={clearError}>
                 <Switch>
                     <Route path="/login">
                         <LoginPage
-                            error={error}
                             user={user}
-                            handleError={this.handleError}
                             handleUserLogin={this.handleUserLogin} />
                     </Route>
                     <Route path="/register">
                         <RegisterPage
-                            error={error}
                             user={user}
-                            handleError={this.handleError}
                             handleUserCreate={this.handleUserCreate} />
                     </Route>
                     <Route path="/">
                         <HomePage
-                            error={error}
                             user={user}
                             messages={messages}
-                            handleError={this.handleError}
                             handleMessageCreate={this.handleMessageCreate}
                             handleMessageEdit={this.handleMessageEdit}
                             handleMessageDelete={this.handleMessageDelete} />
@@ -222,4 +209,12 @@ class App extends React.Component {
     }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+    'handleError': error => dispatch(setError(error)),
+    'clearError': () => dispatch(clearError())
+});
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(App);
