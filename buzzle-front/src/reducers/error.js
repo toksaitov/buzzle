@@ -1,9 +1,9 @@
+import * as actions from '../actions/types.js';
+
 const error = (state = null, action) => {
     switch (action.type) {
-        case 'SET_ERROR':
+        case actions.SET_ERROR:
             return action.error;
-        case 'CLEAR_ERROR':
-            return null;
         default:
             return state;
     }

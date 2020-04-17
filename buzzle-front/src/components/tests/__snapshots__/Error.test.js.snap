@@ -11,6 +11,14 @@ exports[`renders correctly and equal to snapshot 1`] = `
       className="alert alert-danger"
     >
       Something went wrong...
+      <button
+        className="close"
+        type="button"
+      >
+        <span>
+          ×
+        </span>
+      </button>
     </div>
   </div>
 </div>

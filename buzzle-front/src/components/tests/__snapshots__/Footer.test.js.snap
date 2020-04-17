@@ -8,12 +8,7 @@ exports[`renders correctly and equal to snapshot 1`] = `
     <p
       className="mx-auto mt-3"
     >
-      © 2020 
-      <a
-        href="https://devcit.auca.kg"
-      >
-        DEVCIT
-      </a>
+      © 2020
     </p>
   </nav>
 </footer>

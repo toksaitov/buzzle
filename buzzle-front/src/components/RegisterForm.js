@@ -1,22 +1,31 @@
 import React from 'react';
-import { Redirect } from "react-router-dom";
+import { Redirect } from "react-router";
 
 class RegisterForm extends React.Component {
+    componentWillUnmount() {
+        this.props.unloadRegisterForm();
+        this.props.clearError();
+    }
+
     handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+        this.props.updateRegisterForm(event.target.name, event.target.value);
     }
 
     handleSubmit = event => {
         event.preventDefault();
-        this.props.handleUserCreate({
-            'login': this.state.login,
-            'password': this.state.password,
-            'password-repeat': this.state['password-repeat'],
+
+        this.props.createUser({
+            'login': this.props.login,
+            'password': this.props.password,
+            'password-repeat': this.props['password-repeat']
         });
     }
 
     render() {
         const user = this.props.user;
+        const login = this.props.login;
+        const password = this.props.password;
+        const passwordRepeat = this.props['password-repeat'];
 
         return (user ?
             <Redirect to="/" />
@@ -28,7 +37,6 @@ class RegisterForm extends React.Component {
                         method="POST"
                         action="/register"
                         autoComplete="off"
-                        onChange={this.handleChange}
                         onSubmit={this.handleSubmit} >
                         <div className="form-group">
                             <label htmlFor="login">Login:</label>
@@ -38,6 +46,8 @@ class RegisterForm extends React.Component {
                                 type="text"
                                 name="login"
                                 autoComplete="off"
+                                value={login}
+                                onChange={this.handleChange}
                                 required />
                         </div>
                         <div className="form-group">
@@ -48,6 +58,8 @@ class RegisterForm extends React.Component {
                                 type="password"
                                 name="password"
                                 autoComplete="new-password"
+                                onChange={this.handleChange}
+                                value={password}
                                 required />
                         </div>
                         <div className="form-group">
@@ -58,6 +70,8 @@ class RegisterForm extends React.Component {
                                 type="password"
                                 name="password-repeat"
                                 autoComplete="new-password"
+                                onChange={this.handleChange}
+                                value={passwordRepeat}
                                 required />
                         </div>
                         <input className="btn btn-primary" type="submit" value="Register" />

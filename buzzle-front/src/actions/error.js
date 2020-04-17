@@ -1,8 +1,11 @@
+import * as action from './types.js';
+
 export const setError = error => ({
-    'type': 'SET_ERROR',
-    error
+    'type': action.SET_ERROR,
+    error,
 });
 
 export const clearError = () => ({
-    'type': 'CLEAR_ERROR'
+    'type': action.SET_ERROR,
+    'error': null
 });

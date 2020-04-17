@@ -1,25 +1,28 @@
 import React from 'react';
 
 class MessageForm extends React.Component {
-    state = {
-        'content': ''
-    };
+    componentWillUnmount() {
+        this.props.unloadCreateMessageForm();
+        this.props.clearError();
+    }
 
     handleChange = event => {
-        this.setState({ 'content': event.target.value });
+        this.props.updateCreateMessageForm(event.target.name, event.target.value);
     }
 
     handleSubmit = event => {
         event.preventDefault();
 
-        const newContent = this.state.content;
-        this.props.handleMessageCreate(newContent, () => {
-            this.setState({ 'content': '' });
+        this.props.createMessage(this.props.content, () => {
+            this.props.clearCreateMessageForm();
         });
     }
 
     render() {
-        return (
+        const user = this.props.user;
+        const content = this.props.content;
+
+        return ((user && user.authorized) ?
             <div className="row justify-content-center">
                 <div className="col-md-6 px-5 mt-4">
                     <form action="/message/create" method="POST" onSubmit={this.handleSubmit} >
@@ -34,7 +37,7 @@ class MessageForm extends React.Component {
                                 name="content"
                                 autoComplete="off"
                                 onChange={this.handleChange}
-                                value={this.state.content} />
+                                value={content} />
                             <div className="input-group-append">
                                 <input className="btn btn-primary" type="submit" value="Send" />
                             </div>
@@ -42,6 +45,8 @@ class MessageForm extends React.Component {
                     </form>
                 </div>
             </div>
+            :
+            <></>
         );
     }
 }

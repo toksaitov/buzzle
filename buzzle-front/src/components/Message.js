@@ -5,6 +5,7 @@ import { AnimateGroup } from 'react-animation';
 class Message extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             'content': props.message.content,
             'editing': false
@@ -21,7 +22,7 @@ class Message extends React.Component {
         if (this.state.editing) {
             const id = this.props.message.id;
             const content = this.state.content;
-            this.props.handleMessageEdit(id, content, () => {
+            this.props.editMessage(id, content, () => {
                 this.setState({ 'editing': false });
             });
         } else {
@@ -36,7 +37,7 @@ class Message extends React.Component {
             this.setState({ 'editing': false });
         } else {
             const id = this.props.message.id;
-            this.props.handleMessageDelete(id);
+            this.props.deleteMessage(id);
         }
     }
 
@@ -57,7 +58,7 @@ class Message extends React.Component {
                         <textarea
                             key="0"
                             onChange={this.handleContentChange}
-                            value={this.state.content} />
+                            value={this.props.content} />
                         :
                         <div key="1" className="message-content card-text">{message.content}</div>
                     }</AnimateGroup>

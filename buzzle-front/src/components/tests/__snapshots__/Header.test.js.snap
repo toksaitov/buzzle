@@ -8,6 +8,7 @@ exports[`renders correctly and equal to snapshot 1`] = `
     <a
       className="navbar-brand"
       href="/"
+      onClick={[Function]}
     >
       <h1>
         Buzzle

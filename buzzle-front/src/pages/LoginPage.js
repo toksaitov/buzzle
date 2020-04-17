@@ -1,26 +1,18 @@
 import React from 'react';
 
-import Header from '../components/Header.js';
-import Error from '../components/Error.js';
-import LoginForm from '../components/LoginForm.js';
-import Footer from '../components/Footer.js';
+import Header from '../containers/Header.js';
+import Error from '../containers/Error.js';
+import LoginForm from '../containers/LoginForm.js';
+import Footer from '../containers/Footer.js';
 
-function LoginPage(props) {
-    const user = props.user;
-    const handleUserLogin = props.handleUserLogin;
-
-    return (
-        <>
-            <Header user={user} />
-            <main className="container">
-                <Error />
-                <LoginForm
-                    user={user}
-                    handleUserLogin={handleUserLogin} />
-            </main>
-            <Footer />
-        </>
-    );
-}
+const LoginPage = () =>
+    <>
+        <Header />
+        <main className="container">
+            <Error />
+            <LoginForm />
+        </main>
+        <Footer />
+    </>
 
 export default LoginPage;

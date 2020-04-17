@@ -8,10 +8,10 @@ exports[`renders correctly and equal to snapshot 1`] = `
     className="col-lg-6 px-5"
   >
     <form
-      action="/login"
+      action="/register"
+      autoComplete="off"
       className="p-3"
       method="POST"
-      onChange={[Function]}
       onSubmit={[Function]}
     >
       <div
@@ -23,9 +23,11 @@ exports[`renders correctly and equal to snapshot 1`] = `
           Login:
         </label>
         <input
+          autoComplete="off"
           className="form-control"
           id="login"
           name="login"
+          onChange={[Function]}
           required={true}
           type="text"
         />
@@ -39,9 +41,29 @@ exports[`renders correctly and equal to snapshot 1`] = `
           Password:
         </label>
         <input
+          autoComplete="new-password"
           className="form-control"
           id="password"
           name="password"
+          onChange={[Function]}
+          required={true}
+          type="password"
+        />
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="password-repeat"
+        >
+          Repeat the Password:
+        </label>
+        <input
+          autoComplete="new-password"
+          className="form-control"
+          id="password-repeat"
+          name="password-repeat"
+          onChange={[Function]}
           required={true}
           type="password"
         />
@@ -49,7 +71,7 @@ exports[`renders correctly and equal to snapshot 1`] = `
       <input
         className="btn btn-primary"
         type="submit"
-        value="Login"
+        value="Register"
       />
     </form>
   </div>

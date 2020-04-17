@@ -1,26 +1,18 @@
 import React from 'react';
 
-import Header from '../components/Header.js';
-import Error from '../components/Error.js';
-import RegisterForm from '../components/RegisterForm.js';
-import Footer from '../components/Footer.js';
+import Header from '../containers/Header.js';
+import Error from '../containers/Error.js';
+import RegisterForm from '../containers/RegisterForm.js';
+import Footer from '../containers/Footer.js';
 
-function RegisterPage(props) {
-    const user = props.user;
-    const handleUserCreate = props.handleUserCreate;
-
-    return (
-        <>
-            <Header user={user} />
-            <main className="container">
-                <Error />
-                <RegisterForm
-                    user={user}
-                    handleUserCreate={handleUserCreate} />
-            </main>
-            <Footer />
-        </>
-    );
-}
+const RegisterPage = () =>
+    <>
+        <Header />
+        <main className="container">
+            <Error />
+            <RegisterForm />
+        </main>
+        <Footer />
+    </>
 
 export default RegisterPage;

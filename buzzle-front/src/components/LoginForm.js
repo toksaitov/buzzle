@@ -1,21 +1,29 @@
 import React from 'react';
-import { Redirect } from "react-router-dom";
+import { Redirect } from "react-router";
 
 class LoginForm extends React.Component {
+    componentWillUnmount() {
+        this.props.unloadLoginForm();
+        this.props.clearError();
+    }
+
     handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+        this.props.updateLoginForm(event.target.name, event.target.value);
     }
 
     handleSubmit = event => {
         event.preventDefault();
-        this.props.handleUserLogin({
-            'login': this.state.login,
-            'password': this.state.password
+
+        this.props.loginUser({
+            'login': this.props.login,
+            'password': this.props.password
         });
     }
 
     render() {
         const user = this.props.user;
+        const login = this.props.login;
+        const password = this.props.password;
 
         return (user ?
             <Redirect to="/" />
@@ -26,7 +34,6 @@ class LoginForm extends React.Component {
                         className="p-3"
                         method="POST"
                         action="/login"
-                        onChange={this.handleChange}
                         onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <label htmlFor="login">Login:</label>
@@ -35,6 +42,8 @@ class LoginForm extends React.Component {
                                 className="form-control"
                                 name="login"
                                 type="text"
+                                onChange={this.handleChange}
+                                value={login}
                                 required />
                         </div>
                         <div className="form-group">
@@ -44,6 +53,8 @@ class LoginForm extends React.Component {
                                 className="form-control"
                                 name="password"
                                 type="password"
+                                onChange={this.handleChange}
+                                value={password}
                                 required />
                         </div>
                         <input className="btn btn-primary" type="submit" value="Login" />

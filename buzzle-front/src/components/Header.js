@@ -1,23 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import UserToolbar from './UserToolbar';
+import UserToolbar from '../containers/UserToolbar.js';
 
-function Header(props) {
-    const user = props.user;
-    const showUserToolbar = props.showUserToolbar;
-
-    return (
-        <header>
-            <nav className="navbar navbar-dark bg-primary">
-                <a className="navbar-brand" href="/">
-                    <h1>Buzzle</h1>
-                </a>
-                {showUserToolbar &&
-                    <UserToolbar user={user}/>
-                }
-            </nav>
-        </header>
-    );
-}
+const Header = ({ showUserToolbar }) =>
+    <header>
+        <nav className="navbar navbar-dark bg-primary">
+            <Link className="navbar-brand" to="/">
+                <h1>Buzzle</h1>
+            </Link>
+            {showUserToolbar && <UserToolbar />}
+        </nav>
+    </header>
 
 export default Header;

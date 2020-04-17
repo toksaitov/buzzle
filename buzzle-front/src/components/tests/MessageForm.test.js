@@ -2,15 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 
-import RegisterForm from './RegisterForm.js';
+import MessageForm from '../MessageForm.js';
 
 it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<RegisterForm />, div);
+    ReactDOM.render(<MessageForm />, div);
 });
 
 it('renders correctly and equal to snapshot', () => {
-    const tree = renderer.create(<RegisterForm />)
+    const tree = renderer.create(<MessageForm />)
                          .toJSON();
 
     expect(tree).toMatchSnapshot();
